@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 // useState -> criar estados na função sem escrever elas em formato de classe.
 // useEffect -> Sobrepões metodos do ciclo de vida (componentDidMount(), componentDidUpdate(), componentWillUnmount())
@@ -27,6 +27,9 @@ function App() {
     localStorage.setItem('tech', JSON.stringify(tech));
   }, [tech]);
 
+  // Quando alterar [tech], é recalculado techSize
+  const techSize = useMemo(() => tech.length, [tech]);
+
   return (
     <>
       <ul>
@@ -34,6 +37,8 @@ function App() {
           <li key={t}>{t}</li>
         ))}
       </ul>
+      <strong>Voce tem {techSize} tecnologias</strong>
+      <br />
       <input value={newTech} onChange={e => setNewTech(e.target.value)} />
       <button type="button" onClick={handleAdd}>
         Adicionar
