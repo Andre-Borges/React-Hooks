@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 // useState -> criar estados na função sem escrever elas em formato de classe.
 // useEffect -> Sobrepões metodos do ciclo de vida (componentDidMount(), componentDidUpdate(), componentWillUnmount())
@@ -8,10 +8,15 @@ function App() {
   const [tech, setTech] = useState([]);
   const [newTech, setNewTech] = useState('');
 
-  function handleAdd() {
+  // function handleAdd() {
+  //   setTech([...tech, newTech]);
+  //   setNewTech('');
+  // }
+
+  const handleAdd = useCallback(() => {
     setTech([...tech, newTech]);
     setNewTech('');
-  }
+  }, [newTech, tech]);
 
   // Executa uma unica vez -> componentDidMount()
   useEffect(() => {
